@@ -1,0 +1,1 @@
+# esphome-lcc-bianca-component

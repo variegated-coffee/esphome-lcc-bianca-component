@@ -84,6 +84,7 @@ namespace esphome {
                                 .responseTo = header->id,
                                 .type = ESP_MESSAGE_PONG,
                                 .error = ESP_ERROR_NONE,
+                                .version = ESP_RP2040_PROTOCOL_VERSION,
                                 .length = sizeof(ESPPongMessage),
                         };
                         ESPPongMessage responseMessage{};
@@ -97,6 +98,7 @@ namespace esphome {
                                 .responseTo = header->id,
                                 .type = ESP_MESSAGE_NACK,
                                 .error = ESP_ERROR_PING_WRONG_VERSION,
+                                .version = ESP_RP2040_PROTOCOL_VERSION,
                                 .length = 0,
                         };
 
@@ -137,6 +139,7 @@ namespace esphome {
                     .responseTo = header->id,
                     .type = ESP_MESSAGE_ACK,
                     .error = ESP_ERROR_NONE,
+                    .version = ESP_RP2040_PROTOCOL_VERSION,
                     .length = 0,
             };
 
@@ -150,6 +153,7 @@ namespace esphome {
                     .responseTo = header->id,
                     .type = ESP_MESSAGE_NACK,
                     .error = ESP_ERROR_UNEXPECTED_MESSAGE_LENGTH,
+                    .version = ESP_RP2040_PROTOCOL_VERSION,
                     .length = 0,
             };
 
@@ -222,6 +226,7 @@ namespace esphome {
                     .responseTo = 0,
                     .type = ESP_MESSAGE_SYSTEM_COMMAND,
                     .error = ESP_ERROR_NONE,
+                    .version = ESP_RP2040_PROTOCOL_VERSION,
                     .length = sizeof(ESPSystemCommandMessage),
             };
 

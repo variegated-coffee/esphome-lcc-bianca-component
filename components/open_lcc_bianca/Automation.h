@@ -68,6 +68,17 @@ namespace esphome {
         };
 
         template<typename... Ts>
+        class OpenLCCEnqueueRoutineAction : public Action<Ts...> {
+        public:
+            explicit OpenLCCEnqueueRoutineAction(OpenLCCBianca *bianca) : bianca_(bianca) {}
+
+            void play(Ts... x) override { bianca_->sendCommand(ESP_SYSTEM_COMMAND_ENQUEUE_ROUTINE, (uint32_t)1); }
+
+        protected:
+            OpenLCCBianca *bianca_;
+        };
+
+        template<typename... Ts>
         class OpenLCCSetBrewTemperatureOffsetAction : public Action<Ts...> {
         public:
             explicit OpenLCCSetBrewTemperatureOffsetAction(OpenLCCBianca *bianca) : bianca_(bianca) {}

@@ -25,6 +25,7 @@ OpenLCCSetServiceAutoSleepAfterAction = open_lcc_bianca_ns.class_("OpenLCCSetSer
 OpenLCCSetBrewBoilerSetPointAction = open_lcc_bianca_ns.class_("OpenLCCSetBrewBoilerSetPointAction", automation.Action)
 OpenLCCSetServiceBoilerSetPointAction = open_lcc_bianca_ns.class_("OpenLCCSetServiceBoilerSetPointAction", automation.Action)
 OpenLCCHardBailAction = open_lcc_bianca_ns.class_("OpenLCCHardBailAction", automation.Action)
+OpenLCCEnqueueRoutineAction = open_lcc_bianca_ns.class_("OpenLCCEnqueueRoutineAction", automation.Action)
 StatusMessageType = cg.RawExpression("ESPSystemStatusMessage")
 
 OpenLCCBiancaOnStatusUpdateTrigger = open_lcc_bianca_ns.class_(
@@ -77,6 +78,7 @@ OPENLCC_BIANCA_ACTION_SINGLE_UINT16_ARG_SCHEMA = maybe_simple_id(
 @automation.register_action("open_lcc.bianca.set_sleep_mode_on", OpenLCCSetSleepModeOnAction, OPENLCC_BIANCA_ACTION_NO_ARG_SCHEMA)
 @automation.register_action("open_lcc.bianca.set_sleep_mode_off", OpenLCCSetSleepModeOffAction, OPENLCC_BIANCA_ACTION_NO_ARG_SCHEMA)
 @automation.register_action("open_lcc.bianca.hard_bail", OpenLCCHardBailAction, OPENLCC_BIANCA_ACTION_NO_ARG_SCHEMA)
+@automation.register_action("open_lcc.bianca.enqueue_routine", OpenLCCEnqueueRoutineAction, OPENLCC_BIANCA_ACTION_NO_ARG_SCHEMA)
 async def no_arg_action(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     return cg.new_Pvariable(action_id, template_arg, paren)

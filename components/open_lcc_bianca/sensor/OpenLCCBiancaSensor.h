@@ -43,6 +43,12 @@ namespace esphome {
                 if (should_set(external_temperature_3_, message.externalTemperature3)) {
                     external_temperature_3_->publish_state(message.externalTemperature3);
                 }
+                if (should_set(current_routine_, message.loadedRoutine)) {
+                    current_routine_->publish_state(message.loadedRoutine);
+                }
+                if (should_set(current_routine_step_, message.currentRoutineStep)) {
+                    current_routine_step_->publish_state(message.currentRoutineStep);
+                }
 
                 if (brew_time_ != nullptr && !brew_time_->has_state()) {
                     brew_time_->publish_state(0.f);
@@ -66,7 +72,7 @@ namespace esphome {
 
             bool should_set(esphome::sensor::Sensor *sensor, float value, float sigma = 0.1)
             {
-                return sensor != nullptr && (!sensor->has_state() || fabs(sensor->get_state() - value) >= sigma);
+                return sensor != nullptr && (!sensor->has_state() || fabs(sensor->get_raw_state() - value) >= sigma);
             }
 
             void set_coffee_boiler_temperature(esphome::sensor::Sensor *coffee_boiler_temperature) { coffee_boiler_temperature_ = coffee_boiler_temperature; }
@@ -77,6 +83,8 @@ namespace esphome {
             void set_external_temperature_2(esphome::sensor::Sensor *sens) { external_temperature_2_ = sens; }
             void set_external_temperature_3(esphome::sensor::Sensor *sens) { external_temperature_3_ = sens; }
             void set_brew_time(esphome::sensor::Sensor *sens) { brew_time_ = sens; }
+            void set_current_routine(esphome::sensor::Sensor *sens) { current_routine_ = sens; }
+            void set_current_routine_step(esphome::sensor::Sensor *sens) { current_routine_step_ = sens; }
 
         protected:
             esphome::sensor::Sensor *coffee_boiler_temperature_{nullptr};
@@ -87,6 +95,8 @@ namespace esphome {
             esphome::sensor::Sensor *external_temperature_2_{nullptr};
             esphome::sensor::Sensor *external_temperature_3_{nullptr};
             esphome::sensor::Sensor *brew_time_{nullptr};
+            esphome::sensor::Sensor *current_routine_{nullptr};
+            esphome::sensor::Sensor *current_routine_step_{nullptr};
 
             bool wasBrewing = false;
             uint32_t latestBrewStart = 0;

@@ -15,6 +15,8 @@ CONF_EXTERNAL_TEMPERATURE_3 = "external_temperature_3"
 CONF_AUTO_SLEEP_IN = "auto_sleep_in"
 CONF_RP2040_UPTIME = "rp2040_uptime"
 CONF_BREW_TIME = "brew_time"
+CONF_CURRENT_ROUTINE = "current_routine"
+CONF_CURRENT_ROUTINE_STEP = "current_routine_step"
 
 OpenLCCBiancaSensor = open_lcc_bianca_ns.class_(
     "OpenLCCBiancaSensor",
@@ -74,6 +76,16 @@ CONFIG_SCHEMA = cv.Schema(
             accuracy_decimals=0,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
+        cv.Optional(CONF_CURRENT_ROUTINE): sensor.sensor_schema(
+            icon=ICON_RADIOACTIVE,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_NONE,
+        ),
+        cv.Optional(CONF_CURRENT_ROUTINE_STEP): sensor.sensor_schema(
+            icon=ICON_RADIOACTIVE,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_NONE,
+        ),
     }
 )
 
@@ -106,3 +118,9 @@ async def to_code(config):
     if brew_time_config := config.get(CONF_BREW_TIME):
         sens = await sensor.new_sensor(brew_time_config)
         cg.add(var.set_brew_time(sens))
+    if conf := config.get(CONF_CURRENT_ROUTINE):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_current_routine(sens))
+    if conf := config.get(CONF_CURRENT_ROUTINE_STEP):
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.set_current_routine_step(sens))

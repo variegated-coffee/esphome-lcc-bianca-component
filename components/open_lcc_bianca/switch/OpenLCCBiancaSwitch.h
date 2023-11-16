@@ -32,7 +32,7 @@ namespace esphome {
                 }
 
                 if (low_flow_mode_ != nullptr) {
-                    low_flow_mode_->publish_state(message.flowMode != ESP_FLOW_MODE_FULL_FLOW);
+                    low_flow_mode_->publish_state(message.flowMode != ESP_FLOW_MODE_PUMP_OFF_SOLENOID_OPEN);
                 }
             }
 
@@ -56,7 +56,7 @@ namespace esphome {
                     if (state) {
                         get_parent()->sendCommand(ESP_SYSTEM_COMMAND_SET_FLOW_MODE, (uint32_t)ESP_FLOW_MODE_PUMP_OFF_SOLENOID_OPEN);
                     } else {
-                        get_parent()->sendCommand(ESP_SYSTEM_COMMAND_SET_FLOW_MODE, (uint32_t)ESP_FLOW_MODE_FULL_FLOW);
+                        get_parent()->sendCommand(ESP_SYSTEM_COMMAND_SET_FLOW_MODE, (uint32_t)ESP_FLOW_MODE_PUMP_ON_SOLENOID_OPEN);
                     }
                 });
             }

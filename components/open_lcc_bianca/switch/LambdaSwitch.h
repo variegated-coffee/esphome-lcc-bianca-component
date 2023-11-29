@@ -6,6 +6,7 @@
 #define LCC_ESPHOME_LAMBDASWITCH_H
 
 #include "esphome.h"
+#include "esphome/components/switch/switch.h"
 #include <functional>
 
 
